@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.superSmily.chronos"
+    package="com.superSmily.timeCounter"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
        
         <activity
-            android:name="com.superSmily.chronos.ChronosList"
+            android:name="com.superSmily.timeCounter.ChronosList"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,9 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name="com.superSmily.chronos.ChronoActivity"
+            android:name="com.superSmily.timeCounter.ChronoActivity"
             android:label="@string/title_activity_chronoActivity"
-       		android:parentActivityName="com.superSmily.chronos.ChronosList" >
+       		android:parentActivityName="com.superSmily.timeCounter.ChronosList" >
        		<meta-data
             	android:name="android.support.PARENT_ACTIVITY"
             	android:value="com.superSmily.chronos.ChronosList" />
