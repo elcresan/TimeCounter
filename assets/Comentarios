@@ -1,0 +1,41 @@
+Como utilizar la activity del cronometro:
+
+Debemos saber siempre si el cronometro se esta ejecutando o esta pausado. Este estado
+se guarda en un boolean y se comprueba cada vez que entramos o salimos de la activity
+del cronometro. También necesitamos saber el tiempo en el que se inició el cronometro y el tiempo
+que ha estado ejecutandose hasta que se pausó. Es decir, necesitamos:
+
+idChrono: Entero que identifica el cronometro.
+activityName: String con el nombre de la actividad a cronometrar.
+isRunning: Boolean que representa el estado del cronometro, si esta pausado o ejecutandose.
+baseChrono: Long que representa el tiempo en el que se inició por primera vez, si vale -1 es
+			que aun no se ha iniciado.
+timeRunning: Long que representa el tiempo que el cronometro se ha estado ejecutando hasta que
+			 se pausó. Si no se ha pausado nunca, valdrá -1.
+			 
+Modo de uso:
+
+Al entrar en la activity:
+	1) Utilizar el id (pasado por intent) para asignar el nombre a la actividad y obtener los datos.
+	2) Mirar si esta ejecutandose
+		a) Sí lo está: Asignar al cronometro de la actividad el baseChrono guardado e iniciarlo.
+		b) No lo está: Asignar el tiempo al cronometro con el que se pausó. Para ello:
+			Tenemos que poner en la base del cronometro el tiempo actual menos timeRunning.
+			Si no se actualiza el TextView, start() y stop(). (comprobar que esto no estropee
+			nada).
+
+Al salir de la activity:
+	1) Comprobar si se esta ejecutando:
+		a) Sí lo está:
+			- Guardar en isRunning, True.
+			- Guardar la base del cronometro en baseChrono.
+		b) No lo está:
+			- Guardar en isRynning, false.
+			- Guardar el timeRunning, para obtenerlo restamos al tiempo actual el tiempo base.
+
+Notas:
+	La primera vez que iniciamos el cronometro se podria guardar la base de el mismo en la BD. 
+	Al salir de la actividad, si se esta ejecutando se podría lanzar una notificación para 
+	que el usuario lo tenga en cuenta. Al pulsar sobre ella, le llevaría de nuevo a la actity.
+	MUCHO OJO: Tal vez al apagar o reiniciar el smartphone haya problemas. Estudiar solución.
+ 
