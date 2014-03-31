@@ -2,13 +2,12 @@ package com.superSmily.timeCounter;
 
 import java.util.ArrayList;
 
-import com.superSmily.timeCounter.R;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,11 +32,15 @@ public class ChronosList extends ListActivity {
 	ArrayList<String> listAct;
 	ArrayAdapter<String> adapter;
 	Context ctx;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+ 
         ctx = this;
+        DataBaseHelper dbhelper = new DataBaseHelper(ctx);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        
         //Lista por defecto, más tarde usaremos datos de la app (SharedPreferences, DB, etc)
         String[] activities = {"Estudiar", "En clase", "Jugar", "Dormir"};
         listAct = new ArrayList<String>();

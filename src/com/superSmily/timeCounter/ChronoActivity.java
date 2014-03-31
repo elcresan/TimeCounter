@@ -28,7 +28,6 @@ public class ChronoActivity extends Activity {
 		but = (Button) findViewById(R.id.buttonStart);
 		chrono = (Chronometer) findViewById(R.id.chrono);
 		tvActivity.setText(name);
-		
 	}
 
 	public void startChrono(View view){
