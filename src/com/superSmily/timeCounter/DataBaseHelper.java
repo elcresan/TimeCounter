@@ -1,5 +1,6 @@
 package com.superSmily.timeCounter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -49,7 +50,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
+	}
 
+	// Aqui o en el main?
+	public void addActivity(String name){
+		// Estudiar que valores por defecto hay que poner
+		ContentValues values = new ContentValues();
+		values.put(FeedEntry.COLUMN_NAME_ACTIVITY_NAME, name);
+		values.put(FeedEntry.COLUMN_NAME_BASE_CHRONO, -1);
+		values.put(FeedEntry.COLUMN_NAME_IS_RUNNING, 0);
+		values.put(FeedEntry.COLUMN_NAME_TIME_RUNNING, 0);
+		
+//		long newRowId;
+		SQLiteDatabase db = this.getWritableDatabase();
+		//newRowId = db.insert(FeedEntry.TABLE_NAME, null, values);
+		db.insert(FeedEntry.TABLE_NAME, null, values);
 	}
 
 }

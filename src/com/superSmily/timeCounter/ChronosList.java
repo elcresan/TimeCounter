@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.superSmily.timeCounter.DataBaseHelper.FeedEntry;
 
 public class ChronosList extends ListActivity {
 
@@ -32,6 +35,7 @@ public class ChronosList extends ListActivity {
 	ArrayList<String> listAct;
 	ArrayAdapter<String> adapter;
 	Context ctx;
+	SQLiteDatabase db;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class ChronosList extends ListActivity {
  
         ctx = this;
         DataBaseHelper dbhelper = new DataBaseHelper(ctx);
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        db = dbhelper.getWritableDatabase();
         
         //Lista por defecto, más tarde usaremos datos de la app (SharedPreferences, DB, etc)
         String[] activities = {"Estudiar", "En clase", "Jugar", "Dormir"};
@@ -87,10 +91,21 @@ public class ChronosList extends ListActivity {
     	dialog.show();
     }
     */
+    
     public void addActivity(String act){
     	//Añadir a los datos de la app (sharedPreferences, DB, etc.)
+    	
     	listAct.add(act);
     	adapter.notifyDataSetChanged();
+    	// Insert into database
+		ContentValues values = new ContentValues();
+		values.put(FeedEntry.COLUMN_NAME_ACTIVITY_NAME, act);
+		values.put(FeedEntry.COLUMN_NAME_BASE_CHRONO, -1);
+		values.put(FeedEntry.COLUMN_NAME_IS_RUNNING, 0);
+		values.put(FeedEntry.COLUMN_NAME_TIME_RUNNING, 0);
+		db.insert(FeedEntry.TABLE_NAME, null, values);		
+		//long newRowId;		
+		//newRowId = db.insert(FeedEntry.TABLE_NAME, null, values);
     }
     
     public void dialogGetActivity(){
