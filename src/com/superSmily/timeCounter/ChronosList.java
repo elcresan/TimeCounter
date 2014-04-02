@@ -53,6 +53,8 @@ public class ChronosList extends ListActivity {
         
         for(int i=0; i < defaultAct.length; ++i)
         	listAct.add(defaultAct[i]);
+        for(int i=0; i < storedAct.size(); ++i)
+        	listAct.add(storedAct.get(i));
         
         //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
         adapter = new ArrayAdapter<String>(

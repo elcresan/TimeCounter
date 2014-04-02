@@ -27,6 +27,7 @@ public class ActivityDAO {
 		dbHelp.close();
 	}
 	public void addActivity(Activity act){
+		//Estudiar como poner el ID
 		ContentValues values = new ContentValues();
 		values.put(FeedEntry.COLUMN_NAME_ACTIVITY_NAME, act.getName());
 		values.put(FeedEntry.COLUMN_NAME_BASE_CHRONO, act.getBaseChrono());
