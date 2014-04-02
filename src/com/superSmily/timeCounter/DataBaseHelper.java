@@ -37,7 +37,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 	
 	public DataBaseHelper(Context context) {
-		super(context,DATABASE_NAME , null, DATABASE_VERSION);
+		super(context, DATABASE_NAME , null, DATABASE_VERSION);
 		// TODO Auto-generated constructor stub
 	}
 

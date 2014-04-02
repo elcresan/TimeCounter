@@ -7,6 +7,23 @@ public class Activity {
 	long timeRunning;
 	boolean isRunning;
 	
+	public Activity(){
+		id = "-1";
+		name = "Unknown";
+		baseChrono = -1;
+		timeRunning = 0;
+		isRunning = false;		
+	}
+	
+	public Activity(String n){
+		id = "-1";
+		name = n;
+		baseChrono = -1;
+		timeRunning = 0;
+		isRunning = false;		
+	}
+	
+	
 	public String getId() {
 		return id;
 	}
