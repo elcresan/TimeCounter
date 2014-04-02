@@ -46,11 +46,13 @@ public class ChronosList extends ListActivity {
         db = dbhelper.getWritableDatabase();
         
         //Lista por defecto, más tarde usaremos datos de la app (SharedPreferences, DB, etc)
-        String[] activities = {"Estudiar", "En clase", "Jugar", "Dormir"};
+        String[] defaultAct = {"Estudiar", "En clase", "Jugar", "Dormir"};
+        ArrayList<String> storedAct = getActivitiesName();  
+        
         listAct = new ArrayList<String>();
         
-        for(int i=0; i < activities.length; ++i)
-        	listAct.add(activities[i]);
+        for(int i=0; i < defaultAct.length; ++i)
+        	listAct.add(defaultAct[i]);
         
         //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
         adapter = new ArrayAdapter<String>(
@@ -67,7 +69,7 @@ public class ChronosList extends ListActivity {
     	startActivity(i);
     	
     }
-    /*
+/*    
     public void onListItemLongClick(ListView l, View v, int pos, long id){
     	//Lanzar dialog para borrar
     	AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
@@ -90,22 +92,41 @@ public class ChronosList extends ListActivity {
     	AlertDialog dialog = builder.create();
     	dialog.show();
     }
-    */
+  */  
     
     public void addActivity(String act){
-    	//Añadir a los datos de la app (sharedPreferences, DB, etc.)
-    	
+    	// Insert into database (SQLiteException)
+    	ActivityDAO dao = new ActivityDAO(ctx);
+    	try{
+    		dao.open();
+    		dao.addActivity(new Activity(act));
+    	}catch(Exception e){
+    		//toast error adding activity at db, it wont be stored!
+    	}finally{
+    		dao.close();
+    	} 	
     	listAct.add(act);
-    	adapter.notifyDataSetChanged();
-    	// Insert into database
-		ContentValues values = new ContentValues();
-		values.put(FeedEntry.COLUMN_NAME_ACTIVITY_NAME, act);
-		values.put(FeedEntry.COLUMN_NAME_BASE_CHRONO, -1);
-		values.put(FeedEntry.COLUMN_NAME_IS_RUNNING, 0);
-		values.put(FeedEntry.COLUMN_NAME_TIME_RUNNING, 0);
-		db.insert(FeedEntry.TABLE_NAME, null, values);		
-		//long newRowId;		
-		//newRowId = db.insert(FeedEntry.TABLE_NAME, null, values);
+    	adapter.notifyDataSetChanged();	
+    }
+    
+    // getActivitiesName() and getActivities()
+    
+    public ArrayList<String> getActivitiesName(){
+    	ArrayList<Activity> acts = new ArrayList<Activity>();
+    	ArrayList<String> actsName = new ArrayList<String>();
+    	ActivityDAO dao = new ActivityDAO(ctx);
+    	try{
+    		dao.open();
+    		acts = dao.getActivities();
+    		for(int i=0; i < acts.size(); ++i)
+    			actsName.add(acts.get(i).getName());
+    	}catch(Exception e){
+    		//Toast error reading getting your activities
+    		
+    	}finally{
+    		dao.close();
+    	}
+    	return actsName;
     }
     
     public void dialogGetActivity(){

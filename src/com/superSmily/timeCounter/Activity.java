@@ -1,11 +1,11 @@
 package com.superSmily.timeCounter;
 
 public class Activity {
-	String id;
-	String name;
-	long baseChrono;
-	long timeRunning;
-	boolean isRunning;
+	private String id;
+	private String name;
+	private long baseChrono;
+	private long timeRunning;
+	private boolean isRunning;
 	
 	public Activity(){
 		id = "-1";
