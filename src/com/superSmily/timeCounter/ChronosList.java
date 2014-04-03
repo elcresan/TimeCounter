@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,24 +36,14 @@ public class ChronosList extends ListActivity {
 	ArrayList<String> listAct;
 	ArrayAdapter<String> adapter;
 	Context ctx;
-	SQLiteDatabase db;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- 
         ctx = this;
-        DataBaseHelper dbhelper = new DataBaseHelper(ctx);
-        db = dbhelper.getWritableDatabase();
-        
-        //Lista por defecto, más tarde usaremos datos de la app (SharedPreferences, DB, etc)
-        String[] defaultAct = {"Estudiar", "En clase", "Jugar", "Dormir"};
+        // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
         ArrayList<String> storedAct = getActivitiesName();  
-        
         listAct = new ArrayList<String>();
-        
-        for(int i=0; i < defaultAct.length; ++i)
-        	listAct.add(defaultAct[i]);
         for(int i=0; i < storedAct.size(); ++i)
         	listAct.add(storedAct.get(i));
         
@@ -111,6 +102,17 @@ public class ChronosList extends ListActivity {
     	adapter.notifyDataSetChanged();	
     }
     
+    public void removeActivity(String actName){
+    	ActivityDAO dao = new ActivityDAO(ctx);
+    	try{
+    		dao.open();
+    		dao.removeActivity(actName);
+    	}catch(Exception e){
+    		Log.e("ChronosList", e.toString());
+    	}finally{
+    		dao.close();
+    	}
+    }
     // getActivitiesName() and getActivities()
     
     public ArrayList<String> getActivitiesName(){
@@ -183,7 +185,6 @@ public class ChronosList extends ListActivity {
     		break;
     	case R.id.menu_settings:
     		//lanzar settings
-    		addActivity("Settings");
     		break;
     	default:
     		break;
