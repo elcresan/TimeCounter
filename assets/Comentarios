@@ -30,7 +30,7 @@ Al salir de la activity:
 			- Guardar en isRunning, True.
 			- Guardar la base del cronometro en baseChrono.
 		b) No lo está:
-			- Guardar en isRynning, false.
+			- Guardar en isRunning, false.
 			- Guardar el timeRunning, para obtenerlo restamos al tiempo actual el tiempo base.
 
 Notas:

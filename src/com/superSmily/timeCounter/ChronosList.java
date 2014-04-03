@@ -59,8 +59,7 @@ public class ChronosList extends ListActivity {
     	Intent i = new Intent(ctx, ChronoActivity.class);
     	//Añadir los extras con la actividad elegida
     	i.putExtra("name", listAct.get(pos));
-    	startActivity(i);
-    	
+    	startActivity(i); 	
     }
 /*    
     public void onListItemLongClick(ListView l, View v, int pos, long id){

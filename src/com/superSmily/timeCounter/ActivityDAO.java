@@ -36,11 +36,53 @@ public class ActivityDAO {
 		
 		db.insert(FeedEntry.TABLE_NAME, null, values);
 	}
+	
 	public void removeActivity(String actName){
 		String selection = FeedEntry.COLUMN_NAME_ACTIVITY_NAME + " LIKE ?";
-		String[] SelectionArgs = {actName};
-		db.delete(FeedEntry.TABLE_NAME, selection, SelectionArgs);
+		String[] selectionArgs = {actName};
+		db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
 	}
+	
+	public void updateActivity(Activity act){
+		ContentValues values = new ContentValues();
+		values.put(FeedEntry.COLUMN_NAME_ACTIVITY_NAME, act.getName());
+		values.put(FeedEntry.COLUMN_NAME_BASE_CHRONO, act.getBaseChrono());
+		values.put(FeedEntry.COLUMN_NAME_IS_RUNNING, (act.isRunning()) ? 1 : 0);
+		values.put(FeedEntry.COLUMN_NAME_TIME_RUNNING, act.getTimeRunning());
+		
+		String selection = FeedEntry.COLUMN_NAME_ACTIVITY_NAME + " LIKE ?";
+		String[] selectionArgs = {act.getName()};
+		
+		db.update(FeedEntry.TABLE_NAME, values, selection, selectionArgs);	
+	}
+	
+	public Activity getActivityByName(String name){
+		Activity act = new Activity();
+		String[] projection = {
+				FeedEntry.COLUMN_NAME_ENTRY_ID,
+				FeedEntry.COLUMN_NAME_ACTIVITY_NAME,
+				FeedEntry.COLUMN_NAME_BASE_CHRONO,
+				FeedEntry.COLUMN_NAME_TIME_RUNNING,
+				FeedEntry.COLUMN_NAME_IS_RUNNING
+		};
+		String selection = FeedEntry.COLUMN_NAME_ACTIVITY_NAME + " LIKE ?"; 
+		String[] selectionArgs = {name};
+		// How you want the results sorted in the resulting Cursor
+		//String sortOrder = FeedEntry.COLUMN_NAME_UPDATED + " DESC";
+		Cursor c = db.query(
+				FeedEntry.TABLE_NAME,
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				null //sortOrder
+				);
+		c.moveToFirst();
+		act = cursor2activity(c);
+		return act;
+	}
+	
 	public ArrayList<Activity> getActivities(){
 		ArrayList<Activity> acts = new ArrayList<Activity>();
 		String[] projection = {
