@@ -37,8 +37,6 @@ public class ChronoActivity extends Activity {
 		but = (Button) findViewById(R.id.buttonStart);
 		chrono = (Chronometer) findViewById(R.id.chrono);
 		text = getTextFromLong(timeRunning);
-		// Pasar estos ifs a onResume
-
 		
 		chrono.setText(text);
 		tvActivity.setText(name);
@@ -51,8 +49,7 @@ public class ChronoActivity extends Activity {
 			but.setText("Pause");
 			chrono.setBase(act.getBaseChrono());
 			chrono.start();
-		}
-		if(timeRunning > 0)
+		}else if(timeRunning > 0)
 			but.setText("Resume");
 	}
 	@Override
