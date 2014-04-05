@@ -9,10 +9,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -42,12 +46,65 @@ public class ChronosList extends ListActivity {
         listAct = new ArrayList<String>();
         for(int i=0; i < storedAct.size(); ++i)
         	listAct.add(storedAct.get(i));
+        /******************************/
+        
+        ListView lv = getListView();
+        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+        
+        lv.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+			
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				// TODO Auto-generated method stub
+				MenuInflater inflater = mode.getMenuInflater();
+		        inflater.inflate(R.menu.context_menu, menu);
+		        return true;
+			}
+			
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				// Respond to clicks on the actions in the CAB
+		        switch (item.getItemId()) {
+		            case R.id.idborrar:
+		                //borrarItems();
+		                mode.finish(); // Action picked, so close the CAB
+		                return true;
+		            default:
+		                return false;
+		        }
+			}
+			
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position,
+					long id, boolean checked) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
+        
+ 
+        /*********************************/
         
         //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
         adapter = new ArrayAdapter<String>(
         		ctx, android.R.layout.simple_list_item_1, listAct);
         setListAdapter(adapter);       
     }
+    
+    
     
     @Override
     public void  onListItemClick(ListView l, View v, int pos, long id){
