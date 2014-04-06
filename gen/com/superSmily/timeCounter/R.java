@@ -27,7 +27,6 @@ public final class R {
         public static final int buttonStart=0x7f080002;
         public static final int chrono=0x7f080001;
         public static final int etDialogAdd=0x7f080003;
-        public static final int idRenombrar=0x7f080007;
         public static final int idborrar=0x7f080006;
         public static final int menu_add_activity=0x7f080004;
         public static final int menu_settings=0x7f080005;

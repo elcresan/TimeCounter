@@ -81,6 +81,8 @@ public class ChronosList extends ListActivity {
 		                //borrarItems();
 		                mode.finish(); // Action picked, so close the CAB
 		                return true;
+		           // case R.id.idRenombrar:
+		           // 	mode.finish();
 		            default:
 		                return false;
 		        }
