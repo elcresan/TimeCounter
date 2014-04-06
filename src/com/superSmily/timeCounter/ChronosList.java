@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,8 +26,6 @@ import android.widget.Toast;
 
 public class ChronosList extends ListActivity {
 
-	
-	
 	/*
 	 *Se podría crear un array personalizado con un string y un numero(tiempo) 
 	 *para rellenar y guardar la lista de actividades.
@@ -36,6 +36,8 @@ public class ChronosList extends ListActivity {
 	ArrayList<String> listAct;
 	ArrayAdapter<String> adapter;
 	Context ctx;
+    ActionMode mActionMode;
+
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +51,63 @@ public class ChronosList extends ListActivity {
         /******************************/
         
         ListView lv = getListView();
-        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+        //lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         
+
+        final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+            // Called when the action mode is created; startActionMode() was called
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Inflate a menu resource providing context menu items
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.context_menu, menu);
+                return true;
+            }
+
+            // Called each time the action mode is shown. Always called after onCreateActionMode, but
+            // may be called multiple times if the mode is invalidated.
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false; // Return false if nothing is done
+            }
+
+            // Called when the user selects a contextual menu item
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.idborrar:
+                        mode.finish(); // Action picked, so close the CAB
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            // Called when the user exits the action mode
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                mActionMode = null;
+            }
+        };
+        
+        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+ 			@Override
+ 			public boolean onItemLongClick(AdapterView<?> parent, View view,
+ 					int position, long id) {
+ 				if (mActionMode != null) {
+ 					return false;
+ 				}
+
+		        // Start the CAB using the ActionMode.Callback defined above
+		        mActionMode = startActionMode(mActionModeCallback);
+		        view.setSelected(true);
+		        return true;
+ 			}      	
+ 		});
+        
+  /*      
         lv.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 			
 			@Override
@@ -95,7 +152,7 @@ public class ChronosList extends ListActivity {
 				
 			}
 		});
-        
+  */      
         
  
         /*********************************/
