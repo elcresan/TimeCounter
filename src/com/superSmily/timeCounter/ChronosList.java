@@ -7,6 +7,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -52,6 +53,7 @@ public class ChronosList extends ListActivity {
         
         ListView lv = getListView();
         //lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+        lv.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         
 
         final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -87,6 +89,7 @@ public class ChronosList extends ListActivity {
             // Called when the user exits the action mode
             @Override
             public void onDestroyActionMode(ActionMode mode) {
+            	
                 mActionMode = null;
             }
         };
@@ -102,7 +105,9 @@ public class ChronosList extends ListActivity {
 
 		        // Start the CAB using the ActionMode.Callback defined above
 		        mActionMode = startActionMode(mActionModeCallback);
+		        mActionMode.setTag(position);
 		        view.setSelected(true);
+ 				//view.setBackgroundColor(0x9934B5E4);
 		        return true;
  			}      	
  		});
@@ -162,9 +167,7 @@ public class ChronosList extends ListActivity {
         		ctx, android.R.layout.simple_list_item_1, listAct);
         setListAdapter(adapter);       
     }
-    
-    
-    
+ 
     @Override
     public void  onListItemClick(ListView l, View v, int pos, long id){
     	//Lanzar actividad con el cronometro de esa actividad
