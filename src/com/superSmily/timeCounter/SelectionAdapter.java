@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 //http://www.limecreativelabs.com/seleccion-multiple-listview-contextual-action-bar/
@@ -18,6 +20,9 @@ public class SelectionAdapter extends ArrayAdapter<String> {
 		super(ctx, resource, textViewResourceId, objects);
 	}
 	
+	/**
+     * Add the item at @param position as selected
+     */
 	// New item selected and update the view
 	public void setNewSelection(int position){
 		selection.add(position);
@@ -54,6 +59,18 @@ public class SelectionAdapter extends ArrayAdapter<String> {
         return selection.size();
     }
     
-    
+    @Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+    	View v = super.getView(position, convertView, parent);
+ 
+        v.setBackgroundColor(getContext().getResources().getColor(
+                android.R.color.transparent)); // Default color
+ 
+        if (selection.contains(position)) {
+            v.setBackgroundColor(getContext().getResources().getColor(
+                    android.R.color.tab_indicator_text)); // color when selected
+        } 
+        return v;
+    }
     
 }
