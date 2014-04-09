@@ -17,9 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -65,18 +62,45 @@ public class ChronosList extends ListActivity {
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode,
 					int position, long id, boolean checked) {
+				// Set the item to selected or not at the adapter
 				if(checked)
 					adapter.setNewSelection(position);
 				else
 					adapter.removeSelection(position);
-				mode.setTitle(adapter.getCount() + "activities selected");
+				mode.setTitle(adapter.getSelectionCount() + " activities selected");
 				
+			}
+			
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				//Add the options of actionbar
+				switch(item.getItemId()){
+				
+				case R.id.idborrar:
+					// Remove the items
+					Toast.makeText(ctx, adapter.getSelectionCount() + " activities removed",
+							Toast.LENGTH_SHORT).show();
+					adapter.clearSelection();
+					mode.finish();
+					return true;
+				default:
+					return false;
+				}
 			}
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				// TODO Auto-generated method stub
-				return false;
+				
+				// The actionBar is initialized
+				MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.context_menu, menu);
+				return true;
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				
+				adapter.clearSelection();				
 			}
 
 			@Override
@@ -84,19 +108,6 @@ public class ChronosList extends ListActivity {
 				// TODO Auto-generated method stub
 				return false;
 			}
-
-			@Override
-			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public void onDestroyActionMode(ActionMode mode) {
-				// TODO Auto-generated method stub
-				
-			}
-
         	
         });
     	
