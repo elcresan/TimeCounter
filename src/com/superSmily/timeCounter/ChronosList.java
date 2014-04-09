@@ -7,7 +7,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -35,7 +34,7 @@ public class ChronosList extends ListActivity {
 	 *Guardar el tiempo en segundos y hacer transformaciones a minutos, horas.	
 	*/
 	ArrayList<String> listAct;
-	ArrayAdapter<String> adapter;
+	private SelectionAdapter adapter;
 	Context ctx;
     ActionMode mActionMode;
 
@@ -49,123 +48,59 @@ public class ChronosList extends ListActivity {
         listAct = new ArrayList<String>();
         for(int i=0; i < storedAct.size(); ++i)
         	listAct.add(storedAct.get(i));
-        /******************************/
+         
+        //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
+        adapter = new SelectionAdapter(
+        		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, listAct);
+        setListAdapter(adapter); 
+        setupActionBar();
+    }
+    
+    private void setupActionBar(){
+    	ListView lv = getListView();
+        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         
-        ListView lv = getListView();
-        //lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
-        lv.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        
+        lv.setMultiChoiceModeListener(new MultiChoiceModeListener(){
+        	
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode,
+					int position, long id, boolean checked) {
+				if(checked)
+					adapter.setNewSelection(position);
+				else
+					adapter.removeSelection(position);
+				mode.setTitle(adapter.getCount() + "activities selected");
+				
+			}
 
-        final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				// TODO Auto-generated method stub
+				return false;
+			}
 
-            // Called when the action mode is created; startActionMode() was called
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                // Inflate a menu resource providing context menu items
-                MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.context_menu, menu);
-                return true;
-            }
-
-            // Called each time the action mode is shown. Always called after onCreateActionMode, but
-            // may be called multiple times if the mode is invalidated.
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false; // Return false if nothing is done
-            }
-
-            // Called when the user selects a contextual menu item
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.idborrar:
-                        mode.finish(); // Action picked, so close the CAB
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-
-            // Called when the user exits the action mode
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-            	
-                mActionMode = null;
-            }
-        };
-        
-        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
-
- 			@Override
- 			public boolean onItemLongClick(AdapterView<?> parent, View view,
- 					int position, long id) {
- 				if (mActionMode != null) {
- 					return false;
- 				}
-
-		        // Start the CAB using the ActionMode.Callback defined above
-		        mActionMode = startActionMode(mActionModeCallback);
-		        mActionMode.setTag(position);
-		        view.setSelected(true);
- 				//view.setBackgroundColor(0x9934B5E4);
-		        return true;
- 			}      	
- 		});
-        
-  /*      
-        lv.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-			
 			@Override
 			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
 			@Override
 			public void onDestroyActionMode(ActionMode mode) {
 				// TODO Auto-generated method stub
 				
 			}
-		
-			@Override
-			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				// TODO Auto-generated method stub
-				MenuInflater inflater = mode.getMenuInflater();
-		        inflater.inflate(R.menu.context_menu, menu);
-		        return true;
-			}
-			
-			@Override
-			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				// Respond to clicks on the actions in the CAB
-		        switch (item.getItemId()) {
-		            case R.id.idborrar:
-		                //borrarItems();
-		                mode.finish(); // Action picked, so close the CAB
-		                return true;
-		           // case R.id.idRenombrar:
-		           // 	mode.finish();
-		            default:
-		                return false;
-		        }
-			}
-			
-			@Override
-			public void onItemCheckedStateChanged(ActionMode mode, int position,
-					long id, boolean checked) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-  */      
-        
- 
-        /*********************************/
-        
-        //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
-        adapter = new ArrayAdapter<String>(
-        		ctx, android.R.layout.simple_list_item_1, listAct);
-        setListAdapter(adapter);       
+
+        	
+        });
+    	
+    	
     }
  
     @Override

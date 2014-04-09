@@ -16,7 +16,7 @@ public class SelectionAdapter extends ArrayAdapter<String> {
 	private ArrayList<Integer> selection = new ArrayList<Integer>();
 	
 	public SelectionAdapter(Context ctx, int resource,
-			int textViewResourceId, List<String> objects){
+			int textViewResourceId, ArrayList<String> objects){
 		super(ctx, resource, textViewResourceId, objects);
 	}
 	
