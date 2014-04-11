@@ -31,7 +31,7 @@ public class SelectionAdapter extends ArrayAdapter<String> {
      * Deselect the item at @param position
      */
 	public void removeSelection(int position){
-		selection.remove(position);
+		selection.remove(Integer.valueOf(position));
 		notifyDataSetChanged();
 	}
 	/**
