@@ -37,6 +37,12 @@ public class ActivityDAO {
 		db.insert(FeedEntry.TABLE_NAME, null, values);
 	}
 	
+	public void removeActivities(ArrayList<String> activities){
+		int size = activities.size();
+		for(int i=0; i < size; ++i)
+			removeActivity(activities.get(i));		
+	}
+	
 	public void removeActivity(String actName){
 		String selection = FeedEntry.COLUMN_NAME_ACTIVITY_NAME + " LIKE ?";
 		String[] selectionArgs = {actName};

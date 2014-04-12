@@ -66,7 +66,7 @@ public class SelectionAdapter extends ArrayAdapter<String> {
  
         if (selection.contains(position)) {
             v.setBackgroundColor(getContext().getResources().getColor(
-                    android.R.color.holo_purple)); // color when selected
+                    android.R.color.holo_green_light)); // color when selected
         } 
         return v;
     }

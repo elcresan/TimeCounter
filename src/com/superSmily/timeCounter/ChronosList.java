@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
+
 public class ChronosList extends ListActivity {
 
 	/*
@@ -30,6 +32,7 @@ public class ChronosList extends ListActivity {
 	 *
 	 *Guardar el tiempo en segundos y hacer transformaciones a minutos, horas.	
 	*/
+	
 	ArrayList<String> listAct;
 	private SelectionAdapter adapter;
 	Context ctx;
@@ -55,8 +58,7 @@ public class ChronosList extends ListActivity {
     
     private void setupActionBar(){
     	ListView lv = getListView();
-        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
-        
+        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);      
         lv.setMultiChoiceModeListener(new MultiChoiceModeListener(){
         	
 			@Override
@@ -78,9 +80,12 @@ public class ChronosList extends ListActivity {
 				
 				case R.id.idborrar:
 					// Remove the items
+					removeActivities();
 					Toast.makeText(ctx, adapter.getSelectionCount() + " activities removed",
 							Toast.LENGTH_SHORT).show();
+					//Toast.makeText(ctx, a, Toast.LENGTH_SHORT).show();
 					adapter.clearSelection();
+					
 					mode.finish();
 					return true;
 				default:
@@ -98,8 +103,7 @@ public class ChronosList extends ListActivity {
 			}
 
 			@Override
-			public void onDestroyActionMode(ActionMode mode) {
-				
+			public void onDestroyActionMode(ActionMode mode) {			
 				adapter.clearSelection();				
 			}
 
@@ -113,7 +117,26 @@ public class ChronosList extends ListActivity {
     	
     	
     }
- 
+
+    private void removeActivities(){
+    	ArrayList<Integer> selected = adapter.getSelected();
+    	ArrayList<String> activities = new ArrayList<String>();
+    	int size = selected.size();
+    	for(int index = 0; index < size; ++index)
+    		activities.add(listAct.get(selected.get(index)));
+    	for(int i = 0; i < size; ++i)
+    		listAct.remove(activities.get(i));
+		adapter.notifyDataSetChanged();    	
+    	ActivityDAO dao = new ActivityDAO(ctx);
+    	try{
+    		dao.open();
+    		dao.removeActivities(activities);
+    	}catch(Exception e){
+    		//toast error removing activities from DB
+    	}finally{
+    		dao.close();
+    	}
+    }
     @Override
     public void  onListItemClick(ListView l, View v, int pos, long id){
     	//Lanzar actividad con el cronometro de esa actividad
@@ -122,30 +145,6 @@ public class ChronosList extends ListActivity {
     	i.putExtra("name", listAct.get(pos));
     	startActivity(i); 	
     }
-/*    
-    public void onListItemLongClick(ListView l, View v, int pos, long id){
-    	//Lanzar dialog para borrar
-    	AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-    	builder.setTitle(R.string.list_dialog_delete_title)
-    		.setMessage(R.string.list_dialog_delete_message)
-    		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					//Eliminar actividad
-				}
-			})
-			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.cancel();
-				}
-			});
-    	AlertDialog dialog = builder.create();
-    	dialog.show();
-    }
-  */  
     
     public void addActivity(String act){
     	// Insert into database (SQLiteException)
