@@ -34,7 +34,6 @@ public class ChronosList extends ListActivity {
 	*/
 	
 	ArrayList<String> listAct;
-	ArrayList<String> listTime;
 	private SelectionAdapter adapter;
 	Context ctx;
     ActionMode mActionMode;
@@ -47,19 +46,20 @@ public class ChronosList extends ListActivity {
         // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
 
         listAct = new ArrayList<String>();
-        listTime = new ArrayList<String>();
 
         ArrayList<Activity> activities = new ArrayList<Activity>();
         activities = getActivities();
-        for(int i=0; i < activities.size(); ++i){
+       for(int i=0; i < activities.size(); ++i){
         	listAct.add(activities.get(i).getName());
-        	listTime.add(getTextFromLong(activities.get(i).getTimeRunning()));      	
         }        
-        
+      
         //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
         adapter = new SelectionAdapter(
-        		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, listAct);
-        setListAdapter(adapter); 
+        		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, activities);
+        
+        //        adapter = new SelectionAdapter(
+//        		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, listAct);
+        setListAdapter(adapter);
         setupActionBar();
     }
     
@@ -144,6 +144,7 @@ public class ChronosList extends ListActivity {
     		dao.close();
     	}
     }
+    
     @Override
     public void  onListItemClick(ListView l, View v, int pos, long id){
     	//Lanzar actividad con el cronometro de esa actividad
@@ -185,7 +186,6 @@ public class ChronosList extends ListActivity {
     		dao.close();
     	}
     }
-    // getActivitiesName() and getActivities()
     
     public ArrayList<Activity> getActivities(){
     	ArrayList<Activity> acts = new ArrayList<Activity>();
@@ -241,28 +241,7 @@ public class ChronosList extends ListActivity {
     	alertD.show();
     	
     }
-	public String timetoString(int time){
-		if(time < 10)
-			return "0"+String.valueOf(time);
-		else
-			return String.valueOf(time);
-	}
-
 	
-	public String getTextFromLong(Long time){
-
-		int seconds = time.intValue()/1000;
-		int hour = seconds/3600;
-		int minutes = (seconds/60)%60;
-		seconds = seconds % 60;
-		if(hour > 0)
-			return timetoString(hour) + ":"
-					+ timetoString(minutes) + ":" 
-					+ timetoString(seconds);
-		else
-			return timetoString(minutes) + ":" 
-					+ timetoString(seconds);
-	}
     
 
  //Menú de la activity
