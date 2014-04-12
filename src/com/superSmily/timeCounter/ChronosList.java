@@ -35,6 +35,7 @@ public class ChronosList extends ListActivity {
 	
 	ArrayList<String> listAct;
 	private SelectionAdapter adapter;
+	ArrayList<Activity> activities;
 	Context ctx;
     ActionMode mActionMode;
 
@@ -47,7 +48,7 @@ public class ChronosList extends ListActivity {
         // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
         listAct = new ArrayList<String>();
 
-        ArrayList<Activity> activities = new ArrayList<Activity>();
+        activities = new ArrayList<Activity>();
         activities = getActivities();
        for(int i=0; i < activities.size(); ++i){
         	listAct.add(activities.get(i).getName());
@@ -124,17 +125,25 @@ public class ChronosList extends ListActivity {
 
     private void removeActivities(){
     	ArrayList<Integer> selected = adapter.getSelected();
-    	ArrayList<String> activities = new ArrayList<String>();
+    	ArrayList<String> actNames = new ArrayList<String>();
+    	ArrayList<Activity> acts = new ArrayList<Activity>();
+    	
     	int size = selected.size();
-    	for(int index = 0; index < size; ++index)
-    		activities.add(listAct.get(selected.get(index)));
-    	for(int i = 0; i < size; ++i)
-    		listAct.remove(activities.get(i));
+    	for(int index = 0; index < size; ++index){
+    		actNames.add(listAct.get(selected.get(index)));
+    		acts.add(activities.get(selected.get(index)));
+    	}
+    	
+    	for(int i = 0; i < size; ++i){
+    		listAct.remove(actNames.get(i));
+    		activities.remove(acts.get(i));
+    	}
+    	
 		adapter.notifyDataSetChanged();    	
     	ActivityDAO dao = new ActivityDAO(ctx);
     	try{
     		dao.open();
-    		dao.removeActivities(activities);
+    		dao.removeActivities(actNames);
     	}catch(Exception e){
     		//toast error removing activities from DB
     	}finally{
@@ -151,24 +160,26 @@ public class ChronosList extends ListActivity {
     	startActivity(i); 	
     }
     
-    public void addActivity(String act){
+    public void addActivity(String actName){
     	// Insert into database (SQLiteException)
-    	if(listAct.contains(act)){
+    	if(listAct.contains(actName)){
 			Toast.makeText(ctx,"That activity already exists. Use another name.",
 					Toast.LENGTH_SHORT).show();
 			return;
     	}
     		
     	ActivityDAO dao = new ActivityDAO(ctx);
+    	Activity act = new Activity(actName);
     	try{
     		dao.open();
-    		dao.addActivity(new Activity(act));
+    		dao.addActivity(act);
     	}catch(Exception e){
     		//toast error adding activity at db, it wont be stored!
     	}finally{
     		dao.close();
     	} 	
-    	listAct.add(act);
+    	listAct.add(actName);
+    	activities.add(act);
     	adapter.notifyDataSetChanged();	
     }
     

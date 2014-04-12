@@ -72,12 +72,12 @@ public class SelectionAdapter extends ArrayAdapter<Activity> {
 	public View getView(int position, View convertView, ViewGroup parent) {
     	
     	//View v = super.getView(position, convertView, parent);
-        if (convertView == null) {
+       // if (convertView == null) {
             // This a new view we inflate the new layout
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //convertView = inflater.inflate(R.layout.activity_list_item, parent, false);
             convertView = inflater.inflate(R.layout.activity_list_item, null);
-        }
+       // }
     	
     	TextView name = (TextView) convertView.findViewById(R.id.id_item_list_name);
     	TextView time = (TextView) convertView.findViewById(R.id.id_item_list_time);
