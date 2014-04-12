@@ -34,6 +34,7 @@ public class ChronosList extends ListActivity {
 	*/
 	
 	ArrayList<String> listAct;
+	ArrayList<String> listTime;
 	private SelectionAdapter adapter;
 	Context ctx;
     ActionMode mActionMode;
@@ -44,11 +45,17 @@ public class ChronosList extends ListActivity {
         super.onCreate(savedInstanceState);
         ctx = this;
         // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
-        ArrayList<String> storedAct = getActivitiesName();  
+
         listAct = new ArrayList<String>();
-        for(int i=0; i < storedAct.size(); ++i)
-        	listAct.add(storedAct.get(i));
-         
+        listTime = new ArrayList<String>();
+
+        ArrayList<Activity> activities = new ArrayList<Activity>();
+        activities = getActivities();
+        for(int i=0; i < activities.size(); ++i){
+        	listAct.add(activities.get(i).getName());
+        	listTime.add(getTextFromLong(activities.get(i).getTimeRunning()));      	
+        }        
+        
         //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
         adapter = new SelectionAdapter(
         		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, listAct);
@@ -180,21 +187,25 @@ public class ChronosList extends ListActivity {
     }
     // getActivitiesName() and getActivities()
     
-    public ArrayList<String> getActivitiesName(){
+    public ArrayList<Activity> getActivities(){
     	ArrayList<Activity> acts = new ArrayList<Activity>();
-    	ArrayList<String> actsName = new ArrayList<String>();
     	ActivityDAO dao = new ActivityDAO(ctx);
     	try{
     		dao.open();
     		acts = dao.getActivities();
-    		for(int i=0; i < acts.size(); ++i)
-    			actsName.add(acts.get(i).getName());
     	}catch(Exception e){
-    		//Toast error reading getting your activities
-    		
+    		//Toast error reading getting your activities   		
     	}finally{
     		dao.close();
     	}
+    	return acts;
+    }
+    
+    public ArrayList<String> getActivitiesName(){
+    	ArrayList<Activity> acts = getActivities();
+    	ArrayList<String> actsName = new ArrayList<String>();
+   		for(int i=0; i < acts.size(); ++i)
+    		actsName.add(acts.get(i).getName());
     	return actsName;
     }
     
@@ -230,6 +241,28 @@ public class ChronosList extends ListActivity {
     	alertD.show();
     	
     }
+	public String timetoString(int time){
+		if(time < 10)
+			return "0"+String.valueOf(time);
+		else
+			return String.valueOf(time);
+	}
+
+	
+	public String getTextFromLong(Long time){
+
+		int seconds = time.intValue()/1000;
+		int hour = seconds/3600;
+		int minutes = (seconds/60)%60;
+		seconds = seconds % 60;
+		if(hour > 0)
+			return timetoString(hour) + ":"
+					+ timetoString(minutes) + ":" 
+					+ timetoString(seconds);
+		else
+			return timetoString(minutes) + ":" 
+					+ timetoString(seconds);
+	}
     
 
  //Menú de la activity
