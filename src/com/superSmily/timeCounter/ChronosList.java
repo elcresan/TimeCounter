@@ -43,8 +43,8 @@ public class ChronosList extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ctx = this;
+        
         // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
-
         listAct = new ArrayList<String>();
 
         ArrayList<Activity> activities = new ArrayList<Activity>();
@@ -53,12 +53,9 @@ public class ChronosList extends ListActivity {
         	listAct.add(activities.get(i).getName());
         }        
       
-        //Array simple, más tarde usaremos uno personalizado en el que aparezca la actividad y el tiempo
         adapter = new SelectionAdapter(
         		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, activities);
-        
-        //        adapter = new SelectionAdapter(
-//        		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, listAct);
+
         setListAdapter(adapter);
         setupActionBar();
     }
