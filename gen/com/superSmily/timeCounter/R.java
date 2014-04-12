@@ -29,9 +29,8 @@ public final class R {
         public static final int etDialogAdd=0x7f080005;
         public static final int id_item_list_name=0x7f080000;
         public static final int id_item_list_time=0x7f080001;
-        public static final int idborrar=0x7f080008;
+        public static final int idborrar=0x7f080007;
         public static final int menu_add_activity=0x7f080006;
-        public static final int menu_settings=0x7f080007;
         public static final int textViewActivity=0x7f080002;
     }
     public static final class layout {

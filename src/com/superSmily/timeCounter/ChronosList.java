@@ -268,9 +268,6 @@ public class ChronosList extends ListActivity {
     		//lanzar dialog		
     		dialogGetActivity();
     		break;
-    	case R.id.menu_settings:
-    		//lanzar settings
-    		break;
     	default:
     		break;
     	}   	
