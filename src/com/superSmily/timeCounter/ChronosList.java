@@ -148,6 +148,12 @@ public class ChronosList extends ListActivity {
     
     public void addActivity(String act){
     	// Insert into database (SQLiteException)
+    	if(listAct.contains(act)){
+			Toast.makeText(ctx,"That activity already exists. Use another name.",
+					Toast.LENGTH_SHORT).show();
+			return;
+    	}
+    		
     	ActivityDAO dao = new ActivityDAO(ctx);
     	try{
     		dao.open();
