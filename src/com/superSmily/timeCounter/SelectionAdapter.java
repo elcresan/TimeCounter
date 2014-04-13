@@ -83,14 +83,23 @@ public class SelectionAdapter extends ArrayAdapter<Activity> {
     	TextView time = (TextView) convertView.findViewById(R.id.id_item_list_time);
     	
     	String actN = activities.get(position).getName();
-    	String actT = getTextFromLong(activities.get(position).getTimeRunning());
     	
     	name.setText(actN);
-    	time.setText(actT);
+    	if(activities.get(position).isRunning()){
+    		// Mark is running
+
+    		time.setText("Counting...");
+    		name.setTextColor(context.getResources().getColor(android.R.color.holo_red_light));
+    		time.setTextColor(context.getResources().getColor(android.R.color.holo_red_light));
+    	}else{
+    		// Default color
+            convertView.setBackgroundColor(getContext().getResources().getColor(
+                    android.R.color.transparent));
+        	String actT = getTextFromLong(activities.get(position).getTimeRunning());
+        	time.setText(actT);
+    	}
     	
-        convertView.setBackgroundColor(getContext().getResources().getColor(
-                android.R.color.transparent)); // Default color
- 
+    	// Selected color
         if (selection.contains(position)) {
         	convertView.setBackgroundColor(getContext().getResources().getColor(
                     android.R.color.holo_green_light)); // color when selected
