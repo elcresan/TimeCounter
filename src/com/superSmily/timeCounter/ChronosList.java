@@ -44,21 +44,31 @@ public class ChronosList extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ctx = this;
-        
-        // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
         listAct = new ArrayList<String>();
-
         activities = new ArrayList<Activity>();
         activities = getActivities();
-       for(int i=0; i < activities.size(); ++i){
-        	listAct.add(activities.get(i).getName());
-        }        
-      
+        for(int i=0; i < activities.size(); ++i){
+         	listAct.add(activities.get(i).getName());
+         }                 
         adapter = new SelectionAdapter(
         		ctx, android.R.layout.simple_list_item_1, android.R.id.text1, activities);
-
         setListAdapter(adapter);
         setupActionBar();
+
+        // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
+        
+    }
+    
+    @Override
+    public void onResume(){
+    	/*Necessary to refresh the list (counting or not) when user press back button instead
+    	* of up button
+    	*/
+    	super.onResume();
+    	adapter.clear();
+    	activities = getActivities();
+    	adapter.addAll(activities);
+        adapter.notifyDataSetChanged();
     }
     
     private void setupActionBar(){
