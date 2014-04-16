@@ -58,19 +58,20 @@ public class ChronosList extends ListActivity {
         // Estudiar hacerlo en segundo plano para no bloquear el hilo principal
         
     }
-    
+  /*  
     @Override
     public void onResume(){
     	/*Necessary to refresh the list (counting or not) when user press back button instead
     	* of up button
     	*/
+    /*
     	super.onResume();
     	adapter.clear();
     	activities = getActivities();
     	adapter.addAll(activities);
         adapter.notifyDataSetChanged();
     }
-    
+   */ 
     private void setupActionBar(){
     	ListView lv = getListView();
         lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);      
