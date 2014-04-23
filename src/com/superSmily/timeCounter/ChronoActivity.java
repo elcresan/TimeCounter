@@ -119,6 +119,7 @@ public class ChronoActivity extends Activity {
 		
 	
 	public void startChrono(View view){
+		// Change the condition to state of the chrono.
 		// Chrono didn't start
 		if(but.getText().equals("Start")){ 
 			chrono.setBase(SystemClock.elapsedRealtime());
