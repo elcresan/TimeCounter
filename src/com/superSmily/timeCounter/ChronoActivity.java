@@ -23,7 +23,6 @@ public class ChronoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chronoactivity);	
-		
 		ctx = getApplicationContext();
 		TextView tvActivity = (TextView) findViewById(R.id.textViewActivity);
 		Intent i = getIntent();
@@ -125,7 +124,7 @@ public class ChronoActivity extends Activity {
 	public void startChrono(View view){
 		// Change the condition to state of the chrono.
 		// Chrono didn't start
-		if(but.getText().equals("Start")){ 
+		if(act.getTimeRunning() == 0 && !act.isRunning()){ 
 			chrono.setBase(SystemClock.elapsedRealtime());
 			chrono.start();
 			act.setBaseChrono(chrono.getBase());
@@ -133,7 +132,7 @@ public class ChronoActivity extends Activity {
 			but.setText("Pause");
 		}else{
 			// Chrono is running
-			if(but.getText().equals("Pause")){
+			if(act.isRunning()){
 				// Storing the time that chrono spent runnning
 				timeRunning = SystemClock.elapsedRealtime() - chrono.getBase();
 				chrono.stop();
