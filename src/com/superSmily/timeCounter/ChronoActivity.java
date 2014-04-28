@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -65,7 +66,10 @@ public class ChronoActivity extends Activity {
 			dao.close();
 		}		
 	}
-	
+	@Override
+	public void onBackPressed(){
+		NavUtils.navigateUpFromSameTask(this);
+	}
 	
 	public void setActivity(String name){
 		ActivityDAO dao = new ActivityDAO(ctx);
@@ -136,6 +140,7 @@ public class ChronoActivity extends Activity {
 				act.setTimeRunning(timeRunning);
 				act.setRunning(false);
 				but.setText("Resume");
+
 			}
 			// Chrono is paused
 			else{
