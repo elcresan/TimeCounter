@@ -67,6 +67,8 @@ public class ChronoActivity extends Activity {
 	}
 	@Override
 	public void onBackPressed(){
+		// This is necessary to refresh the state (counting...) of an activity on the list
+		// when user press back button it acts like the up button of the ActionBar
 		NavUtils.navigateUpFromSameTask(this);
 	}
 	
@@ -81,22 +83,7 @@ public class ChronoActivity extends Activity {
 			dao.close();
 		}
 	}
-/*
-	public Long getTimeRunning(String name){
-		
-		ActivityDAO dao = new ActivityDAO(ctx);
-		com.superSmily.timeCounter.Activity act = new com.superSmily.timeCounter.Activity();
-		try{
-			dao.open();
-			act = dao.getActivityByName(name);
-		}catch(Exception e){
-    		Log.e("ChronoActivity", e.toString());
-		}finally{
-			dao.close();
-		}
-		return act.getTimeRunning();
-	}
-*/
+
 	public String timetoString(int time){
 		if(time < 10)
 			return "0"+String.valueOf(time);
@@ -120,6 +107,15 @@ public class ChronoActivity extends Activity {
 					+ timetoString(seconds);
 	}
 		
+	public void resetChrono(View view){
+		chrono.stop();	
+		chrono.setText("00:00");
+		act.setBaseChrono(-1);
+		act.setTimeRunning(0);
+		timeRunning = act.getTimeRunning();
+		act.setRunning(false);
+		but.setText("Start");
+	}
 	
 	public void startChrono(View view){
 		// Change the condition to state of the chrono.
