@@ -29,8 +29,8 @@ public class ChronoActivity extends Activity {
 		Bundle extras = i.getExtras();
 		
 		String name = extras.getString("name");
-		String text = "00:00";
-		
+		String text = new String();
+		//setActivity can fail, it will be handled in next versions
 		setActivity(name);
 		//Change it to get the entire activity
 		timeRunning = act.getTimeRunning();
@@ -46,11 +46,11 @@ public class ChronoActivity extends Activity {
 		super.onResume();
 		
 		if(act.isRunning()){
-			but.setText("Pause");
+			but.setText(R.string.chrono_pause_button);
 			chrono.setBase(act.getBaseChrono());
 			chrono.start();
 		}else if(timeRunning > 0)
-			but.setText("Resume");
+			but.setText(R.string.chrono_resume_button);
 	}
 	@Override
 	public void onPause(){
@@ -125,7 +125,7 @@ public class ChronoActivity extends Activity {
 			chrono.start();
 			act.setBaseChrono(chrono.getBase());
 			act.setRunning(true);
-			but.setText("Pause");
+			but.setText(R.string.chrono_pause_button);
 		}else{
 			// Chrono is running
 			if(act.isRunning()){
@@ -134,7 +134,7 @@ public class ChronoActivity extends Activity {
 				chrono.stop();
 				act.setTimeRunning(timeRunning);
 				act.setRunning(false);
-				but.setText("Resume");
+				but.setText(R.string.chrono_resume_button);
 
 			}
 			// Chrono is paused
@@ -144,7 +144,7 @@ public class ChronoActivity extends Activity {
 				chrono.start();
 				act.setBaseChrono(chrono.getBase());
 				act.setRunning(true);
-				but.setText("Pause");
+				but.setText(R.string.chrono_pause_button);
 			}
 		}
 	}

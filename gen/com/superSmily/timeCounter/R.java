@@ -45,21 +45,27 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050000;
-        public static final int default_activity=0x7f050009;
+        public static final int chrono_default_activity=0x7f050009;
+        public static final int chrono_pause_button=0x7f05000d;
+        public static final int chrono_reset_button=0x7f05000b;
+        public static final int chrono_resume_button=0x7f05000c;
+        public static final int chrono_start_button=0x7f05000a;
+        /**  ChronoActivity 
+         */
+        public static final int chrono_title_activity_chronoActivity=0x7f050008;
         public static final int list_dialog_add_hint=0x7f050004;
         public static final int list_dialog_add_title=0x7f050003;
         public static final int list_dialog_delete_message=0x7f050007;
         public static final int list_dialog_delete_title=0x7f050006;
+        /**  Activity List Item 
+         */
+        public static final int list_item_default_activity=0x7f05000e;
+        public static final int list_item_default_time=0x7f05000f;
         /**  ChronosList 
          */
         public static final int list_menu_add_activity=0x7f050001;
         public static final int list_menu_settings=0x7f050002;
         public static final int list_toast_name_empty=0x7f050005;
-        public static final int reset_button=0x7f05000b;
-        public static final int start_button=0x7f05000a;
-        /**  ChronoActivity 
-         */
-        public static final int title_activity_chronoActivity=0x7f050008;
     }
     public static final class style {
         /** 

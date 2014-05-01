@@ -4,9 +4,7 @@
     <string name="app_name">Time Counter</string>
     
     
-    <!-- ChronosList -->
-    
-    
+    <!-- ChronosList -->   
     <string name="list_menu_add_activity">Add activity</string>
     <string name="list_menu_settings">Settings</string>
 	<string name="list_dialog_add_title">Activity name</string>
@@ -16,10 +14,16 @@
 	<string name="list_dialog_delete_message">You will lose the activity time recorded</string>
 
 	<!-- ChronoActivity -->	
-	<string name="title_activity_chronoActivity">Chrono</string>
-	<string name="default_activity">Default Activity</string>
-	<string name="start_button">Start</string>
-	<string name= "reset_button">Reset</string>
+	<string name="chrono_title_activity_chronoActivity">Chrono</string>
+	<string name="chrono_default_activity">Default Activity</string>
+	<string name="chrono_start_button">Start</string>
+	<string name="chrono_reset_button">Reset</string>
+	<string name="chrono_resume_button">Resume</string>
+	<string name="chrono_pause_button">Pause</string>
+	
+	<!-- Activity List Item -->
+	<string name="list_item_default_activity">Default Activity</string>
+	<string name="list_item_default_time">02:15</string>
 	
 
 

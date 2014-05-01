@@ -25,7 +25,7 @@
         </activity>
         <activity 
             android:name="com.superSmily.timeCounter.ChronoActivity"
-            android:label="@string/title_activity_chronoActivity"
+            android:label="@string/chrono_title_activity_chronoActivity"
        		android:parentActivityName="com.superSmily.timeCounter.ChronosList" >
        		<meta-data
             	android:name="android.support.PARENT_ACTIVITY"

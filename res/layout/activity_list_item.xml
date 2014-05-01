@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Correr"
+            android:text="@string/list_item_default_activity"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="03:15"
+            android:text="@string/list_item_default_time"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>
