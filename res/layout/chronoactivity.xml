@@ -31,12 +31,25 @@
         android:text="@string/chrono_start_button"
         android:onClick="startChrono" />
     
-    <Button
-        android:id="@+id/buttonReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/chrono_reset_button"
-        android:onClick="resetChrono"/>
+    <LinearLayout 
+       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:orientation="horizontal" >
+	    <Button
+	        android:id="@+id/buttonReset"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:text="@string/chrono_reset_button"
+	        android:onClick="resetChrono"/>
+	    <Button 
+	        android:id="@+id/buttonSet"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:text="@string/chrono_set_button"
+	        android:onClick="setChrono"
+	        />
+    </LinearLayout>
     
 </LinearLayout>

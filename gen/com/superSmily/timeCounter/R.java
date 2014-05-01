@@ -25,13 +25,14 @@ public final class R {
     }
     public static final class id {
         public static final int buttonReset=0x7f080005;
+        public static final int buttonSet=0x7f080006;
         public static final int buttonStart=0x7f080004;
         public static final int chrono=0x7f080003;
-        public static final int etDialogAdd=0x7f080006;
+        public static final int etDialogAdd=0x7f080007;
         public static final int id_item_list_name=0x7f080000;
         public static final int id_item_list_time=0x7f080001;
-        public static final int idborrar=0x7f080008;
-        public static final int menu_add_activity=0x7f080007;
+        public static final int idborrar=0x7f080009;
+        public static final int menu_add_activity=0x7f080008;
         public static final int textViewActivity=0x7f080002;
     }
     public static final class layout {
@@ -49,6 +50,7 @@ public final class R {
         public static final int chrono_pause_button=0x7f05000d;
         public static final int chrono_reset_button=0x7f05000b;
         public static final int chrono_resume_button=0x7f05000c;
+        public static final int chrono_set_button=0x7f05000e;
         public static final int chrono_start_button=0x7f05000a;
         /**  ChronoActivity 
          */
@@ -59,8 +61,8 @@ public final class R {
         public static final int list_dialog_delete_title=0x7f050006;
         /**  Activity List Item 
          */
-        public static final int list_item_default_activity=0x7f05000e;
-        public static final int list_item_default_time=0x7f05000f;
+        public static final int list_item_default_activity=0x7f05000f;
+        public static final int list_item_default_time=0x7f050010;
         /**  ChronosList 
          */
         public static final int list_menu_add_activity=0x7f050001;

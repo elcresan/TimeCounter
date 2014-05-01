@@ -20,6 +20,7 @@
 	<string name="chrono_reset_button">Reset</string>
 	<string name="chrono_resume_button">Resume</string>
 	<string name="chrono_pause_button">Pause</string>
+	<string name="chrono_set_button">Set</string>
 	
 	<!-- Activity List Item -->
 	<string name="list_item_default_activity">Default Activity</string>
