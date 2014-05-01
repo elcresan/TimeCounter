@@ -15,10 +15,12 @@
     <string name="list_dialog_delete_title">Delete activity?</string>
 	<string name="list_dialog_delete_message">You will lose the activity time recorded</string>
 
-	<!-- ChronoActivity -->
-	
-	
+	<!-- ChronoActivity -->	
 	<string name="title_activity_chronoActivity">Chrono</string>
+	<string name="default_activity">Default Activity</string>
+	<string name="start_button">Start</string>
+	<string name= "reset_button">Reset</string>
+	
 
 
 </resources>

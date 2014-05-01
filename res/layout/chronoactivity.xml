@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:text="Activity"
+        android:text="@string/default_activity"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28sp" />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:text="Start"
+        android:text="@string/start_button"
         android:onClick="startChrono" />
     
     <Button
@@ -36,9 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Reset"
+        android:text="@string/reset_button"
         android:onClick="resetChrono"/>
     
-
-
 </LinearLayout>
