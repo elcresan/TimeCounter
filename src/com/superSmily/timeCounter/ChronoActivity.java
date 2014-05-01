@@ -110,7 +110,7 @@ public class ChronoActivity extends Activity {
 	public void setChrono(View view){
 		// Add dialog with a time picker and set the activity object
 	}
-		
+
 	public void resetChrono(View view){
 		chrono.stop();	
 		chrono.setText("00:00");
