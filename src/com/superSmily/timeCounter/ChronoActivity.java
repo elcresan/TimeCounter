@@ -1,12 +1,17 @@
 package com.superSmily.timeCounter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -107,8 +112,22 @@ public class ChronoActivity extends Activity {
 					+ timetoString(seconds);
 	}
 	
+	@SuppressLint("ValidFragment")
+	public class setChronoDialogFragment extends DialogFragment{
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState){
+			AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+		    LayoutInflater inflater = getLayoutInflater();
+
+			builder.setTitle("Choose the time").setView(inflater.inflate(R.layout.dialog_picker,null));
+			return builder.create();
+		}
+	}
+	
 	public void setChrono(View view){
 		// Add dialog with a time picker and set the activity object
+		DialogFragment newFragment = new setChronoDialogFragment();
+		newFragment.show(getFragmentManager(), "Set Time");
 	}
 
 	public void resetChrono(View view){
