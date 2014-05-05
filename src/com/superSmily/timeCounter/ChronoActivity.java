@@ -28,7 +28,7 @@ public class ChronoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chronoactivity);	
-		ctx = getApplicationContext();
+		ctx = this;
 		TextView tvActivity = (TextView) findViewById(R.id.textViewActivity);
 		Intent i = getIntent();
 		Bundle extras = i.getExtras();
